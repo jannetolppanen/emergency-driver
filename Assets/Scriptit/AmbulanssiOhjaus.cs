@@ -21,11 +21,24 @@ public class AmbulanssiOhjaus : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // add Speed!
+        SpeedandBreak();
+        CarTurn();
+    }
+
+    void CarTurn()
+    {
+        turnNow = maxTurn * Input.GetAxis("Horizontal");
+        FR.steerAngle = turnNow;
+        FL.steerAngle = turnNow;
+    }
+
+    void SpeedandBreak()
+    {
+        // Speed
         speedNow = speed * Input.GetAxis("Vertical");
 
-        // add Breaks!
-        if(Input.GetKey(KeyCode.Space))
+        // Brake
+        if (Input.GetKey(KeyCode.Space))
         {
             breaksNow = breaks;
         }
@@ -43,11 +56,5 @@ public class AmbulanssiOhjaus : MonoBehaviour
         FL.brakeTorque = breaksNow;
         BR.brakeTorque = breaksNow;
         BL.brakeTorque = breaksNow;
-
-        // Turning
-        turnNow = maxTurn * Input.GetAxis("Horizontal");
-        FR.steerAngle = turnNow;
-        FL.steerAngle = turnNow;
-
     }
 }
