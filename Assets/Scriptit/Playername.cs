@@ -9,6 +9,7 @@ public class PlayerNameInput : MonoBehaviour
     public void SavePlayerName()
     {
         playerName = nameInputField.text;
-        Debug.Log("Player Name: " + playerName);
+        Debug.Log("Player name: " + playerName);
+
     }
 }

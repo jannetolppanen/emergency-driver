@@ -3102,6 +3102,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4953652439784952, guid: 45374165b7b045b498462bc2d3987a31, type: 3}
   m_PrefabInstance: {fileID: 114398125}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1618851834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1618851837}
+  - component: {fileID: 1618851836}
+  - component: {fileID: 1618851835}
+  m_Layer: 0
+  m_Name: endscreentrigger
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1618851835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618851834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490d3e893ac7b9b45a78db9b27346620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: EndGame
+  delayInSeconds: 1
+--- !u!65 &1618851836
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618851834}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1618851837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618851834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 73.1, y: 0.67, z: 1.71}
+  m_LocalScale: {x: 1, y: 1, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1622046917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953652439784952, guid: 45374165b7b045b498462bc2d3987a31, type: 3}
@@ -3186,6 +3254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1710889914}
+  - component: {fileID: 1710889915}
   m_Layer: 0
   m_Name: TIE
   m_TagString: Untagged
@@ -3239,6 +3308,20 @@ Transform:
   - {fileID: 1622046917}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1710889915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710889913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490d3e893ac7b9b45a78db9b27346620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: EndGame
+  delayInSeconds: 2
 --- !u!1001 &1721661723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4281,6 +4364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ambulanssi
       objectReference: {fileID: 0}
+    - target: {fileID: 4605413638303239222, guid: c5882a9ca83c2af4d8456aa54e8890fe, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7284001453479018291, guid: c5882a9ca83c2af4d8456aa54e8890fe, type: 3}
       propertyPath: m_Mass
       value: 1000
@@ -4389,3 +4476,4 @@ SceneRoots:
   - {fileID: 1795871622}
   - {fileID: 1104505868}
   - {fileID: 913640175}
+  - {fileID: 1618851837}
