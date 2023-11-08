@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
         
         // Loads the next scene in the build index
         SceneManager.LoadScene("Level1");
+       
+     
     }
 
     public void PlayAgain()

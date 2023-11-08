@@ -20,21 +20,14 @@ public class CheckpointTrigger : MonoBehaviour
         // First we wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-        // Then we check if the Timer component exists in the GameObject
-        Timer timerInstance = GetComponent<Timer>();
-        if (timerInstance == null)
-        {
-            // If it doesn't exist, we add it to the GameObject
-            timerInstance = gameObject.AddComponent<Timer>();
-        }
+   
 
         // Then we load the scene
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);
 
-            // Assuming Timer has a method to stop it, we call it here
-            timerInstance.StopTimer();
+           
         }
         else
         {
