@@ -1,47 +1,19 @@
-using UnityEngine;
-using UnityEngine.UI;
+using System;
 
-public class HighScores : MonoBehaviour
+namespace HighScores
 {
-    public Text highScoreText; // Assign this in the Inspector
-
-    private string playerName;
-    private string elapsedTime;
-
-    private void Start()
+    [Serializable]
+    public class HighScores
     {
-        // Retrieve the player's name
-        playerName = PlayerNameInput.playerName;
-
-        // Retrieve the elapsed time from the static variable in Timer
-        elapsedTime = Timer.LastRecordedTime;
-
-        // Display the player's name and time in the UI
-        DisplayHighScore(playerName, elapsedTime);
-
-        // Save the player's name and time for high score purposes
-        SaveHighScore(playerName, elapsedTime);
+        public HighScore[] scores;
     }
 
-    private void SaveHighScore(string name, string time)
+    [Serializable]
+    public class HighScore
     {
-        // Save the player's name and time using PlayerPrefs
-        PlayerPrefs.SetString("HighScoreName", name);
-        PlayerPrefs.SetString("HighScoreTime", time);
-    }
-
-    private void DisplayHighScore(string name, string time)
-    {
-        // Check if the Text object is assigned
-        if (highScoreText != null)
-        {
-            // Update the Text object to show the player's name and time
-            highScoreText.text = name + " - " + time;
-        }
-        else
-        {
-            // Log an error if the Text object isn't assigned
-            Debug.LogError("HighScoreText not assigned in the Inspector.");
-        }
+        public int id;
+        public string playername = "";
+        public float score = 0.0f;
+        public string playtime = "";
     }
 }
