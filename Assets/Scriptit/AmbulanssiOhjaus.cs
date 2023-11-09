@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class AmbulanssiOhjaus : MonoBehaviour
 {
-    [Header("Wheelcolliders")]
+    [Header("Wheelcolliderit")]
     [SerializeField] WheelCollider FR;
     [SerializeField] WheelCollider FL;
     [SerializeField] WheelCollider BR;
     [SerializeField] WheelCollider BL;
+
+    [Header("WheelMeshit")]
+    [SerializeField] Transform FR_transform;
+    [SerializeField] Transform FL_transform;
+    [SerializeField] Transform BR_transform;
+    [SerializeField] Transform BL_transform;
 
     public float speed = 1000f;
     public float breaks = 400f;
@@ -23,16 +29,17 @@ public class AmbulanssiOhjaus : MonoBehaviour
     {
         SpeedandBreak();
         CarTurn();
+        UpdateWheels();
     }
 
-    void CarTurn()
+    private void CarTurn()
     {
         turnNow = maxTurn * Input.GetAxis("Horizontal");
         FR.steerAngle = turnNow;
         FL.steerAngle = turnNow;
     }
 
-    void SpeedandBreak()
+    private void SpeedandBreak()
     {
         // Speed
         speedNow = speed * Input.GetAxis("Vertical");
@@ -56,5 +63,22 @@ public class AmbulanssiOhjaus : MonoBehaviour
         FL.brakeTorque = breaksNow;
         BR.brakeTorque = breaksNow;
         BL.brakeTorque = breaksNow;
+    }
+
+    private void UpdateWheels()
+    {
+        UpdateWheel(FR , FR_transform);
+        UpdateWheel(FL , FL_transform);
+        UpdateWheel(BL , BL_transform);
+        UpdateWheel(BR , BR_transform);
+    }
+    private void UpdateWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    {
+        Vector3 pos;
+        Quaternion rot;
+
+        wheelCollider.GetWorldPose(out pos, out rot);
+        wheelTransform.rotation = rot;
+        wheelTransform.position = pos;
     }
 }
