@@ -1,29 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 using HighScores;
-using System; // Add this line to include the System namespace
+using System;
 
 public class HSCollector : MonoBehaviour
 {
-    public Text highScoreText; // Assign this in the Inspector
+    // Reference to a Text component for displaying high scores. Assign this in the Inspector.
+    public Text highScoreText;
 
+    // Player's name and elapsed time variables
     private string playerName;
     private string elapsedTime;
 
+    // Called when the script is first initialized
     private void Start()
     {
-        // Retrieve the player's name
+        // Retrieve the player's name from the PlayerNameInput script
         playerName = PlayerNameInput.playerName;
 
-        // Retrieve the elapsed time from the static variable in Timer
+        // Retrieve the elapsed time from the static variable in the Timer script
         elapsedTime = Timer.LastRecordedTime;
 
-        // Copying data to HighScore object
+        // Create a new HighScore object and initialize it with player data
         HighScore highScore = new HighScore();
         highScore.playername = playerName;
         highScore.playtime = elapsedTime;
 
-        // Convert time string (mm:ss) to float (total seconds)
+        // Convert time string (mm:ss) to float (total seconds) and set the score
         float score;
         string[] timeComponents = elapsedTime.Split(':');
         if (timeComponents.Length == 2 && float.TryParse(timeComponents[0], out float minutes) && float.TryParse(timeComponents[1], out float seconds))
@@ -33,10 +36,11 @@ public class HSCollector : MonoBehaviour
         }
         else
         {
+            // Log an error if parsing fails
             Debug.LogError("Failed to parse time string to float. elapsedTime value: " + elapsedTime);
         }
 
-        // Serializing the HighScore object
+        // Serialize the HighScore object to JSON format
         string json = JsonUtility.ToJson(highScore);
         // Here you can store the JSON data or process it as needed
 
@@ -47,9 +51,9 @@ public class HSCollector : MonoBehaviour
         SaveHighScore(playerName, elapsedTime);
     }
 
+    // Save the player's name and time using PlayerPrefs with unique keys
     private void SaveHighScore(string name, string time)
     {
-        // Save the player's name and time using PlayerPrefs with unique keys
         for (int i = 1; i <= 3; i++)
         {
             if (!PlayerPrefs.HasKey("HighScoreName" + i))
@@ -61,6 +65,7 @@ public class HSCollector : MonoBehaviour
         }
     }
 
+    // Display the player's name and time in the UI using the assigned Text component
     private void DisplayHighScore(string name, string time)
     {
         // Check if the Text object is assigned

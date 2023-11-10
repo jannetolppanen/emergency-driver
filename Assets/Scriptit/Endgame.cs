@@ -1,36 +1,41 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections; // Needed for IEnumerator
+using System.Collections; 
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    public string nextSceneName; // The name of the scene you want to load after reaching the checkpoint
-    public float delayInSeconds = 2f; // The delay in seconds before the scene loads
+    // The name of the scene you want to load after reaching the checkpoint
+    public string nextSceneName;
 
+    // The delay in seconds before the scene loads
+    public float delayInSeconds = 2f;
+
+    // Called when another collider enters the trigger collider attached to this object
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // Make sure the player is the one triggering the checkpoint
+        // Check if the collider belongs to the player
+        if (other.CompareTag("Player"))
         {
+            // Start a coroutine to wait for a specified delay and then load the next scene
             StartCoroutine(WaitAndLoadScene(delayInSeconds));
         }
     }
 
+    // Coroutine to wait for a specified delay and then load the next scene
     private IEnumerator WaitAndLoadScene(float delay)
     {
-        // First we wait for the specified delay
+        // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-   
-
-        // Then we load the scene
+        // Check if the next scene name is not empty or null
         if (!string.IsNullOrEmpty(nextSceneName))
         {
+            // Load the specified scene
             SceneManager.LoadScene(nextSceneName);
-
-           
         }
         else
         {
+            // Log an error if the next scene name is not set
             Debug.LogError("Next scene name is not set!");
         }
     }
