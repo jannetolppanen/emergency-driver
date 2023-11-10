@@ -30,6 +30,7 @@ public class CheckpointTrigger : MonoBehaviour
         // Check if the next scene name is not empty or null
         if (!string.IsNullOrEmpty(nextSceneName))
         {
+
             // Load the specified scene
             SceneManager.LoadScene(nextSceneName);
         }
