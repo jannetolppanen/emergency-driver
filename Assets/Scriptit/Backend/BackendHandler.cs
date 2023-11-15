@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class BackendHandler : MonoBehaviour
 {
  
-
+ 
     // URLs for fetching high scores from the backend
     const string urlBackendHighScoresFile = "http://localhost/unityphpdemo/api/v1/highscores.json";
     const string urlBackendHighScores = "http://localhost/unityphpdemo/api/v1/highscores.php";
