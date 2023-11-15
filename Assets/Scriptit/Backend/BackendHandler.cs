@@ -12,27 +12,28 @@ public class BackendHandler : MonoBehaviour
     const string urlBackendHighScoresFile = "http://localhost/unityphpdemo/api/v1/highscores.json";
     const string urlBackendHighScores = "http://localhost/unityphpdemo/api/v1/highscores.php";
 
+   
+    
     // HighScores object to store the fetched high scores
     HighScores.HighScores hs;
 
     // Logging info
     string log = "";
     int fetchCounter = 0;
-
+   
     // UI elements
     public UnityEngine.UI.Text loggingText;
-    public UnityEngine.UI.InputField PlayerNameInputField;
-    public UnityEngine.UI.InputField ScoreInputField;
+    
     public UnityEngine.UI.Text highScoresTextArea;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("BackendHandler started");
-
+        PostGameResults();
         FetchhighScoresJSON();
 
-        InsertToLog("Game started");
+       
     }
 
     bool updateHighScoreTextArea = false;
@@ -56,7 +57,7 @@ public class BackendHandler : MonoBehaviour
     public void FetchhighScoresJSON()
     {
         fetchCounter++;
-        Debug.Log("JSONfile Clicked");
+        
         StartCoroutine(GetRequestForHighScores(urlBackendHighScores));
     }
 
@@ -65,17 +66,22 @@ public class BackendHandler : MonoBehaviour
     {
         // Create a HighScore object with player data
         HighScores.HighScore highScore = new HighScores.HighScore();
-        if (PlayerNameInputField.text.Length > 0 && ScoreInputField.text.Length > 0)
-        {
-            highScore.playername = PlayerNameInputField.text;
-            highScore.score = float.Parse(ScoreInputField.text);
 
-            Debug.Log("PostGameResults called" + PlayerNameInputField.text + "with scores" + ScoreInputField.text);
+        // Convert Timer.LastRecordedTime to total seconds and assign it to playtime
+        float recordedTimeInSeconds = Timer.LastRecordedTimeInSeconds;
+        highScore.score = recordedTimeInSeconds;
 
-            // Send a POST request to the backend with the player's game results
-            StartCoroutine(PostRequestForHighScores(urlBackendHighScores, highScore));
-        }
+        // Convert PlayerNameInput.playerName to string and assign it to playername
+        highScore.playername = PlayerNameInput.playerName != null ? PlayerNameInput.playerName.ToString() : "PlayerNameIsNull";
+
+        Debug.Log("PostGameResults called " + Timer.LastRecordedTime + " with scores " + highScore.playername);
+
+        // Send a POST request to the backend with the player's game results
+        StartCoroutine(PostRequestForHighScores(urlBackendHighScores, highScore));
     }
+
+
+
 
     // Method to create a formatted string representing the top three high scores
     string CreateHighScoreList()
@@ -168,6 +174,13 @@ public class BackendHandler : MonoBehaviour
                 // Log success and received data for the POST request
                 InsertToLog("POST request successful");
                 Debug.Log("Received(UTF8): " + resultStr);
+
+                // Check if the desired response is received
+                if (resultStr.Contains("{\"status\":\"OK\",\"dbg\":\"POST received:"))
+                {
+                    // Run FetchhighScoresJSON if the desired response is received
+                    FetchhighScoresJSON();
+                }
             }
         }
     }

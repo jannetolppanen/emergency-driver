@@ -18,6 +18,9 @@ public class Timer : MonoBehaviour
 
     // Static property to access the time from other scenes or scripts
     public static string LastRecordedTime { get; private set; }
+    public static float LastRecordedTimeInSeconds { get; private set; }
+
+    
 
     // Called when the GameObject becomes enabled and active
     void OnEnable()
@@ -57,37 +60,50 @@ public class Timer : MonoBehaviour
     // Method to update the display of the timer
     private void UpdateTimerDisplay()
     {
-        // Calculate the elapsed time
+        // Calculate the elapsed time in seconds including microseconds
         float t = Time.time - startTime;
+        int minutes = Mathf.FloorToInt(t / 60f);
+        int seconds = Mathf.FloorToInt(t % 60f);
+        int milliseconds = Mathf.FloorToInt((t * 100) % 100); // Show only first two digits of milliseconds
 
-        // Format the minutes and seconds
-        string minutes = ((int)t / 60).ToString("00");
-        string seconds = (t % 60).ToString("00");
-
-        // Format the time string
-        string timeString = string.Format("{0}:{1}", minutes, seconds);
+        // Format the time string including minutes, seconds, and milliseconds
+        string timeString = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
 
         // Update the timer text if it is assigned
         if (TimerText != null)
         {
             TimerText.text = "Time: " + timeString;
         }
-       
     }
 
+
+
+    // Method to calculate the total time in seconds
+    private float CalculateTimeInSeconds()
+    {
+        float t = Time.time - startTime;
+        int minutes = (int)t / 60;
+        int seconds = (int)t % 60;
+        return (minutes * 60) + seconds;
+    }
     // Method to get the current time as a formatted string
     public string GetTime()
     {
         float t = Time.time - startTime;
 
-        // Format the minutes and seconds
-        string minutes = ((int)t / 60).ToString("00");
-        string seconds = (t % 60).ToString("00");
+        // Calculate minutes, seconds, and milliseconds
+        int minutes = Mathf.FloorToInt(t / 60f);
+        int seconds = Mathf.FloorToInt(t % 60f);
+        int milliseconds = Mathf.FloorToInt((t * 100f) % 100f);
 
         // Format the time string
-        return string.Format("{0}:{1}", minutes, seconds);
+        return string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
+
+
+
+    // Method to stop the timer
     // Method to stop the timer
     public void StopTimer()
     {
@@ -96,9 +112,12 @@ public class Timer : MonoBehaviour
         {
             isTimerRunning = false;
 
-            // Record the last recorded time
+            // Record the last recorded time as a formatted string ("mm:ss")
             LastRecordedTime = GetTime();
             Debug.Log("Player Time: " + LastRecordedTime);
+
+            // Calculate and store the last recorded time in seconds
+            LastRecordedTimeInSeconds = CalculateTimeInSeconds();
         }
     }
 }

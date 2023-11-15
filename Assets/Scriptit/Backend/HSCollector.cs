@@ -27,18 +27,7 @@ public class HSCollector : MonoBehaviour
         highScore.playtime = elapsedTime;
 
         // Convert time string (mm:ss) to float (total seconds) and set the score
-        float score;
-        string[] timeComponents = elapsedTime.Split(':');
-        if (timeComponents.Length == 2 && float.TryParse(timeComponents[0], out float minutes) && float.TryParse(timeComponents[1], out float seconds))
-        {
-            score = minutes * 60 + seconds;
-            highScore.score = score;
-        }
-        else
-        {
-            // Log an error if parsing fails
-            Debug.LogError("Failed to parse time string to float. elapsedTime value: " + elapsedTime);
-        }
+    
 
         // Serialize the HighScore object to JSON format
         string json = JsonUtility.ToJson(highScore);
