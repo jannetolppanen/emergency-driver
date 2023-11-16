@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 class HighScores {
     const SERVERNAME = "localhost";
     const USERNAME = "root";
@@ -26,7 +28,8 @@ class HighScores {
         if($this->conn) {
             $reply = array("scores" => array());
             
-            $sql = "SELECT * FROM HIGHSCORES ORDER BY score DESC LIMIT 3";
+            $sql = "SELECT * FROM HIGHSCORES ORDER BY score ASC LIMIT 3";
+
             if(($result=$this->conn->query($sql))) {
                 while(($row=$result->fetch_assoc())) {
                     $reply["scores"][] = $row;
@@ -43,8 +46,9 @@ class HighScores {
     }
     function insertHighScore($playername, $score) {
         if($this->conn){
-            $pn = filter_var($playername, FILTER_SANITIZE_STRING);
-            $sc = filter_var($score, FILTER_VALIDATE_INT);
+            $pn = filter_var($playername, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $sc = filter_var($score, FILTER_VALIDATE_FLOAT);
         
             if($pn and $sc) {
                 $sql = 'INSERT INTO HIGHSCORES (playername, score) VALUES ("'.$pn.'",'.$sc.')';
@@ -90,8 +94,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ret = $hs->insertHighScore ($hsItem['playername'], $hsItem['score']);
     
     $response["status"] = $ret;
-    $response["dbg"] = "POST received".$hsitem['playername'].': '.$hsitem['score'];
+    $response["dbg"] = "POST received".$hsItem['playername'].': '.$hsItem['score'];
     
     echo json_encode($response);
 }
 $hs->closeConnection();
+
+
