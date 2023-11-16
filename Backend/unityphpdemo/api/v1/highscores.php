@@ -28,7 +28,7 @@ class HighScores {
         if($this->conn) {
             $reply = array("scores" => array());
             
-            $sql = "SELECT * FROM HIGHSCORES ORDER BY score DESC LIMIT 3";
+            $sql = "SELECT * FROM HIGHSCORES ORDER BY score ASC LIMIT 3";
 
             if(($result=$this->conn->query($sql))) {
                 while(($row=$result->fetch_assoc())) {
@@ -48,7 +48,7 @@ class HighScores {
         if($this->conn){
             $pn = filter_var($playername, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $sc = filter_var($score, FILTER_VALIDATE_INT);
+            $sc = filter_var($score, FILTER_VALIDATE_FLOAT);
         
             if($pn and $sc) {
                 $sql = 'INSERT INTO HIGHSCORES (playername, score) VALUES ("'.$pn.'",'.$sc.')';

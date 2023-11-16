@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace HighScores
 {
@@ -22,8 +24,9 @@ namespace HighScores
 
         // Numeric score achieved by the player
         public float score = 0.0f;
-
+       
         // Date and time when the high score was achieved
         public string playtime = "";
     }
 }
+

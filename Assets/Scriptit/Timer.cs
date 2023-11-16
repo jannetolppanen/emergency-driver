@@ -47,6 +47,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+
     // Called every frame
     private void Update()
     {
@@ -86,6 +87,38 @@ public class Timer : MonoBehaviour
         int seconds = (int)t % 60;
         return (minutes * 60) + seconds;
     }
+    // Method to convert formatted time string to seconds
+    public static float ConvertFormattedTimeToSeconds(string timeString)
+    {
+        if (string.IsNullOrEmpty(timeString))
+        {
+            Debug.LogError("Time string is null or empty.");
+            return 0f; // or handle the error accordingly
+        }
+
+        // Split the time string into its components (minutes, seconds, milliseconds)
+        string[] timeComponents = timeString.Split(':');
+
+        if (timeComponents.Length != 3)
+        {
+            Debug.LogError("Invalid time format.");
+            return 0f; // or handle the error accordingly
+        }
+
+        int minutes, seconds, milliseconds;
+        if (!int.TryParse(timeComponents[0], out minutes) ||
+            !int.TryParse(timeComponents[1], out seconds) ||
+            !int.TryParse(timeComponents[2], out milliseconds))
+        {
+            Debug.LogError("Failed to parse time components to integers.");
+            return 0f; // or handle the error accordingly
+        }
+
+        // Calculate total time in seconds
+        float totalTimeInSeconds = minutes * 60f + seconds + milliseconds / 100f;
+        return totalTimeInSeconds;
+    }
+
     // Method to get the current time as a formatted string
     public string GetTime()
     {

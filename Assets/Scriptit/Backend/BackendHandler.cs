@@ -67,15 +67,17 @@ public class BackendHandler : MonoBehaviour
         // Create a HighScore object with player data
         HighScores.HighScore highScore = new HighScores.HighScore();
 
-        // Convert Timer.LastRecordedTime to total seconds and assign it to playtime
-        float recordedTimeInSeconds = Timer.LastRecordedTimeInSeconds;
-        highScore.score = recordedTimeInSeconds;
+        string formattedTimeString = Timer.LastRecordedTime;
 
+        // Convert the formatted time string to total seconds using Timer's method
+        float totalTimeInSeconds = Timer.ConvertFormattedTimeToSeconds(formattedTimeString);
+        highScore.score = totalTimeInSeconds;
+        
         // Convert PlayerNameInput.playerName to string and assign it to playername
         highScore.playername = PlayerNameInput.playerName != null ? PlayerNameInput.playerName.ToString() : "PlayerNameIsNull";
 
-        Debug.Log("PostGameResults called " + Timer.LastRecordedTime + " with scores " + highScore.playername);
-
+        Debug.Log("PostGameResults called " + highScore.playername + " with scores " + totalTimeInSeconds);
+        Debug.Log(highScore.score);
         // Send a POST request to the backend with the player's game results
         StartCoroutine(PostRequestForHighScores(urlBackendHighScores, highScore));
     }
@@ -147,6 +149,7 @@ public class BackendHandler : MonoBehaviour
     // Coroutine for sending a POST request to submit player's game results to the backend
     IEnumerator PostRequestForHighScores(string uri, HighScores.HighScore hsItem)
     {
+        
         using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(uri, JsonUtility.ToJson(hsItem)))
         {
             InsertToLog("POST request sent to " + uri);
