@@ -15,12 +15,14 @@ public class Timer : MonoBehaviour
 
     // Indicates if the timer is currently running
     private bool isTimerRunning = false;
+    // indicates if the player is on terrain
+    private bool isPlayerOnTerrain = false;
 
     // Static property to access the time from other scenes or scripts
     public static string LastRecordedTime { get; private set; }
     public static float LastRecordedTimeInSeconds { get; private set; }
 
-    
+
 
     // Called when the GameObject becomes enabled and active
     void OnEnable()
@@ -136,7 +138,7 @@ public class Timer : MonoBehaviour
 
 
 
-    // Method to stop the timer
+    
     // Method to stop the timer
     public void StopTimer()
     {
@@ -151,6 +153,28 @@ public class Timer : MonoBehaviour
 
             // Calculate and store the last recorded time in seconds
             LastRecordedTimeInSeconds = CalculateTimeInSeconds();
+        }
+    }
+    private void AdjustTimeOnTerrain()
+    {
+        Debug.Log("Adjusting time on terrain!");
+        // Increase the time spent on terrain based on timeMultiplier
+        startTime -= 60f;
+
+    }
+
+    public void SetPlayerOnTerrain(bool onTerrain)
+    {
+        if (isPlayerOnTerrain != onTerrain)
+        {
+            isPlayerOnTerrain = onTerrain;
+
+            if (isPlayerOnTerrain)
+            {
+                GetTime();
+                AdjustTimeOnTerrain();
+            }
+           
         }
     }
 }
