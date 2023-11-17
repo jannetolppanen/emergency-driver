@@ -136,9 +136,25 @@ public class Timer : MonoBehaviour
     }
 
 
+   
+    public void SetPlayerOnTerrain(bool onTerrain)
+    {
+        if (isPlayerOnTerrain != onTerrain)
+        {
+            isPlayerOnTerrain = onTerrain;
+
+            if (isPlayerOnTerrain)
+            {
+                Debug.Log(startTime);
+                startTime -= 60f;
+               
+            }
+         
+
+        }
+    }
 
 
-    
     // Method to stop the timer
     public void StopTimer()
     {
@@ -155,26 +171,5 @@ public class Timer : MonoBehaviour
             LastRecordedTimeInSeconds = CalculateTimeInSeconds();
         }
     }
-    private void AdjustTimeOnTerrain()
-    {
-        Debug.Log("Adjusting time on terrain!");
-        // Increase the time spent on terrain based on timeMultiplier
-        startTime -= 60f;
-
-    }
-
-    public void SetPlayerOnTerrain(bool onTerrain)
-    {
-        if (isPlayerOnTerrain != onTerrain)
-        {
-            isPlayerOnTerrain = onTerrain;
-
-            if (isPlayerOnTerrain)
-            {
-                GetTime();
-                AdjustTimeOnTerrain();
-            }
-           
-        }
-    }
+  
 }
