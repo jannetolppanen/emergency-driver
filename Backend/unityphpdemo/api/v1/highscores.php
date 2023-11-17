@@ -3,10 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 class HighScores {
-    const SERVERNAME = "localhost";
-    const USERNAME = "root";
-    const PASS = "root";
-    const DBNAME = "HIGHSCORES";
+    const SERVERNAME = "niisku.lab.fi:3306";
+    const USERNAME = "";
+    const PASS = "";
+    const DBNAME = "";
     
     private $conn = null;
     
