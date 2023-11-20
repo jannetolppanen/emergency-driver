@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenet/Mainmenu.unity
     guid: f939637481f3153449ed032154bf9abf
   - enabled: 1
+    path: Assets/Scenet/Lobby.unity
+    guid: 0614c5c701efd274980367d2299c4307
+  - enabled: 1
     path: Assets/Scenet/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
