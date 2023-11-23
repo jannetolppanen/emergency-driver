@@ -12,17 +12,12 @@ public class MainMenu : MonoBehaviour
         
         // Loads the next scene in the build index
         SceneManager.LoadScene("Lobby");
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     public void PlayAgain()
     {
         // Loads the scene named "Level1"
         SceneManager.LoadScene("Lobby");
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void QuitGame()
