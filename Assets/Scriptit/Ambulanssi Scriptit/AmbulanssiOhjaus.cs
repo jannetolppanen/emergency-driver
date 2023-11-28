@@ -53,6 +53,7 @@ public class AmbulanssiOhjaus : MonoBehaviour
         {
             breaksNow = 0f;
         }
+        Debug.Log("Current Speed: " + speed);
 
         // Frontwheels motor only
         FR.motorTorque = speedNow;
