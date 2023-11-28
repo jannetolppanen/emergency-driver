@@ -187,6 +187,6 @@ public class BackendHandler : MonoBehaviour
         }
     }
 
-    // Additional methods or coroutines can be added here...
+   
 
 }
