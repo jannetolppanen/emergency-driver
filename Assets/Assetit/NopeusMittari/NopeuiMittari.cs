@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NopeusMittari : MonoBehaviour
 {
@@ -10,10 +10,10 @@ public class NopeusMittari : MonoBehaviour
 
     public float maxSpeed = 0.0f;
 
-    public float minSpeedArrowAngle;
-    public float maxSpeedArrowAngle;
+    public float minArrowAngle;
+    public float maxArrowAngle;
 
-    public Text speedLabel;
+    public TMP_Text Nopeus;
     public RectTransform arrow;
 
     private float speed = 0.0f;
@@ -21,10 +21,10 @@ public class NopeusMittari : MonoBehaviour
     {
         speed = target.velocity.magnitude * 3.6f;
 
-        if (speedLabel != null)
-            speedLabel.text = ((int)speed) + " km/h";
+        if (Nopeus != null)
+            Nopeus.text = ((int)speed) + " km/h";
         if (arrow != null)
             arrow.localEulerAngles =
-                new Vector3(0, 0, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, speed / maxSpeed));
+                new Vector3(0, 0, Mathf.Lerp(minArrowAngle, maxArrowAngle, speed / maxSpeed));
     }
 }
