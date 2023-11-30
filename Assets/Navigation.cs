@@ -1,31 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
-    public Transform waypoint1;
-    public Transform waypoint2;
+    public Transform destination;
+    public LineRenderer lineRenderer;
+    public float updateInterval = 0.5f;
 
-    private void OnDrawGizmos()
+    private NavMeshPath path;
+    private float lastUpdateTime;
+    
+    void Start()
     {
-        if (waypoint1 == null || waypoint2 == null)
+        path = new NavMeshPath();
+        UpdatePath();
+    }
+
+    void Update()
+    {
+        // Update the path at a specified interval
+        if (Time.time - lastUpdateTime > updateInterval)
         {
-            Debug.LogWarning("Please assign both waypoints in the inspector.");
-            return;
+            UpdatePath();
+            lastUpdateTime = Time.time;
         }
+    }
 
-        Gizmos.color = Color.blue; // You can change the color as needed
+    void UpdatePath()
+    {
+        NavMesh.CalculatePath(transform.position, destination.position, NavMesh.AllAreas, path);
 
-        Gizmos.DrawLine(waypoint1.position, waypoint2.position);
+        DisplayPath(path);
+    }
 
-        // You can also draw additional gizmos as needed, such as arrows or spheres
-        float arrowSize = 0.2f;
-        float arrowLength = 0.5f;
-        Vector3 direction = (waypoint2.position - waypoint1.position).normalized;
-        Vector3 arrowPoint = waypoint1.position + direction * (arrowLength * 0.9f);
-
-        Gizmos.DrawRay(arrowPoint, Quaternion.Euler(0, 0, 135) * direction * arrowSize);
-        Gizmos.DrawRay(arrowPoint, Quaternion.Euler(0, 0, -135) * direction * arrowSize);
+    void DisplayPath(NavMeshPath path)
+    {
+        lineRenderer.positionCount = path.corners.Length;
+        lineRenderer.SetPositions(path.corners);
     }
 }
