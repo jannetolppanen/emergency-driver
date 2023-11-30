@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class Terraincollision : MonoBehaviour
 {
@@ -6,6 +8,8 @@ public class Terraincollision : MonoBehaviour
     private float lastExitTime;
     public float cooldown = 2f; // Cooldown period in seconds
     private float currentTime; // Added this line
+    public GameObject redAlert;
+
 
     private void Update()
     {
@@ -38,6 +42,7 @@ public class Terraincollision : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            redAlert.SetActive(false);
             Debug.Log("Car left the terrain!");
 
             // Update the last exit time
@@ -52,6 +57,14 @@ public class Terraincollision : MonoBehaviour
             {
                 Debug.LogWarning("Timer reference not assigned!");
             }
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            redAlert.SetActive(true);
         }
     }
 }
