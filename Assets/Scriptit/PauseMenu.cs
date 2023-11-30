@@ -7,31 +7,41 @@ using System.Threading;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Canvas menu;
+    public GameObject pauseHud;
+    private bool isPaused = false;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        menu = GetComponent<Canvas>();
-        menu.enabled = false;
+        pauseHud.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menu.enabled = true;
-            Time.timeScale = 0;
-            AudioListener.pause = true;
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
         }
-
     }
-
+    void PauseGame()
+    {
+        isPaused = true;
+        pauseHud.SetActive(true);
+        Time.timeScale = 0;
+        AudioListener.pause = true;
+    }
     public void ResumeGame()
     {
+        isPaused = false;
         Time.timeScale = 1;
-        menu.enabled = false;
+        pauseHud.SetActive(false);
         AudioListener.pause = false;
     }
 
