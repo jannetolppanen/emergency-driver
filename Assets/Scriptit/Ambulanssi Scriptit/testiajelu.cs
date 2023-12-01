@@ -6,14 +6,33 @@ public class testiajelu : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform[] waypoints;
-    public float speed = 5f;
-    public float rotationSpeed = 2f;
-
+    public float speed = 10f;
+    public float rotationSpeed = 10f;
+    public float obstacleDistance;
     public int currentWaypointIndex = 0;
 
     void Update()
     {
         MoveToWaypoint();
+        tormaysRay();
+    }
+
+    void tormaysRay()
+    {
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.5f;
+        Ray ray = new Ray(rayOrigin, transform.forward);
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * obstacleDistance, Color.red);
+
+
+        if (Physics.Raycast(ray, out hit, obstacleDistance))
+        {
+            speed = 0f;
+        }
+        else
+        {
+            speed = 10f;
+        }
     }
 
     void MoveToWaypoint()
