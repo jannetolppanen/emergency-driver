@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class tolppa_osuma : MonoBehaviour
 {
-    public AudioSource Osuma;
-    
-    void OnCollisionEnter(Collision collision)
-    {
-        Osuma.Play();
-    }
 
+AudioSource audioSource;
+public AudioClip audio;
+
+void Start () {
     
+    audioSource = gameObject.AddComponent<AudioSource>();
+}
+
+private void OnCollisionEnter(Collision collision)
+{
+    
+    audioSource.Play();
+}
 }

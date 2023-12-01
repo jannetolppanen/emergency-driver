@@ -6,7 +6,7 @@ public class moottori : MonoBehaviour
 {
     AudioSource audioSource;
     private float targetPitch;
-    public float incrementPitch = 0.4f;
+    public float incrementPitch = 0.1f;
  
     void Start()
     {
@@ -19,7 +19,7 @@ public class moottori : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
         {
-            targetPitch = 1.8f;
+            targetPitch = 2.0f;
         }
      
         if(Input.GetKeyUp(KeyCode.UpArrow) | Input.GetKeyUp(KeyCode.W))
