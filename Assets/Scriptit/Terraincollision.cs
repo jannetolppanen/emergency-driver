@@ -1,31 +1,65 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class Terraincollision : MonoBehaviour
 {
-    public Timer timer; // Reference to your Timer script
-    private float lastExitTime;
-    public float cooldown = 2f; // Cooldown period in seconds
-    private float currentTime; // Added this line
+    public Timer timer;
+    private float enterTime;
+    public float cooldown = 2f;
+    public float exitCooldown = 1f;
     public GameObject redAlert;
-
-
-    private void Update()
-    {
-        currentTime = Time.time; // Added this line
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Car is on the terrain!");
+            Debug.Log("Player is on the terrain!");
+            enterTime = Time.time;
 
-            // Check if enough time has passed since the last time the player exited the terrain
-            if (currentTime - lastExitTime >= cooldown)
+            if (timer != null)
             {
-                // Set the player on the terrain in the Timer script
+                timer.SetPlayerOnTerrain(true);
+            }
+            else
+            {
+                Debug.LogWarning("Timer reference not assigned!");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player left the terrain!");
+
+            if (timer != null)
+            {
+                timer.SetPlayerOnTerrain(false);
+            }
+            else
+            {
+                Debug.LogWarning("Timer reference not assigned!");
+            }
+
+            StartCoroutine(DeactivateRedAlertAfterDelay());
+        }
+    }
+
+    IEnumerator DeactivateRedAlertAfterDelay()
+    {
+        yield return new WaitForSeconds(exitCooldown);
+        redAlert.SetActive(false);
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (Time.time - enterTime >= cooldown)
+            {
+                redAlert.SetActive(true);
+
                 if (timer != null)
                 {
                     timer.SetPlayerOnTerrain(true);
@@ -35,36 +69,6 @@ public class Terraincollision : MonoBehaviour
                     Debug.LogWarning("Timer reference not assigned!");
                 }
             }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            redAlert.SetActive(false);
-            Debug.Log("Car left the terrain!");
-
-            // Update the last exit time
-            lastExitTime = currentTime; // Modified this line
-
-            // Set the player not on the terrain in the Timer script
-            if (timer != null)
-            {
-                timer.SetPlayerOnTerrain(false);
-            }
-            else
-            {
-                Debug.LogWarning("Timer reference not assigned!");
-            }
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            redAlert.SetActive(true);
         }
     }
 }

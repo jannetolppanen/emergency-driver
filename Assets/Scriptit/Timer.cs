@@ -4,10 +4,13 @@ using TMPro;
 // Timer class inherits from MonoBehaviour
 public class Timer : MonoBehaviour
 {
+    
     public TMP_Text TimerText; // TextMeshPro text component for displaying the timer
     private float startTime; // The time when the timer started
     private bool isTimerRunning = false; // Flag to check if the timer is running
     private bool isPlayerOnTerrain = false; // Flag to check if the player is on the terrain
+    private float terrainEntryTime;
+    public float delay = 2f; // Delay period in seconds
 
     // Property to get the last recorded time
     public static string LastRecordedTime { get; private set; }
@@ -43,8 +46,20 @@ public class Timer : MonoBehaviour
         if (isTimerRunning)
         {
             UpdateTimerDisplay();
+            // Check if the player is on the terrain and has been for more than 2 seconds
+            if (isPlayerOnTerrain && Time.time - terrainEntryTime >= delay)
+            {
+                // Decrease the start time by 60 seconds
+                startTime -= 60f;
+              
+                // Reset the terrain entry time
+                terrainEntryTime = Time.time;
+            }
         }
     }
+
+
+    
 
     // Method to update the timer display
     private void UpdateTimerDisplay()
@@ -77,6 +92,7 @@ public class Timer : MonoBehaviour
     }
 
     // Method to set if the player is on the terrain
+
     public void SetPlayerOnTerrain(bool onTerrain)
     {
         if (isPlayerOnTerrain != onTerrain)
@@ -85,8 +101,10 @@ public class Timer : MonoBehaviour
 
             if (isPlayerOnTerrain)
             {
-                startTime -= 60f;
+                // Record the time the player entered the terrain
+                terrainEntryTime = Time.time;
             }
+         
         }
     }
 
