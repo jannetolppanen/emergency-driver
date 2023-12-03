@@ -18,7 +18,7 @@ public class AmbulanssiOhjaus : MonoBehaviour
     [SerializeField] Transform BL_transform;
 
     public float speed = 1000f;
-    public float breaks = 400f;
+    public float breaks = 500f;
     public float maxTurn = 15f;
     private float speedNow = 0f;
     private float breaksNow = 0f;
