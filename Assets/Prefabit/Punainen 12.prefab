@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 1966658072452105951}
   - component: {fileID: 5450825508060852859}
   - component: {fileID: 3482486243782828386}
+  - component: {fileID: 8808781929889456620}
   m_Layer: 0
   m_Name: Punainen 12
   m_TagString: Untagged
@@ -264,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359946961384658801}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -130.2, y: 0.099999905, z: -92.4}
   m_LocalScale: {x: 1.2999998, y: 1.3, z: 1.2999998}
   m_ConstrainProportionsScale: 0
@@ -303,7 +304,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359946961384658801}
   serializedVersion: 4
-  m_Mass: 200
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -353,6 +354,21 @@ MonoBehaviour:
   rotationSpeed: 10
   obstacleDistance: 3
   currentWaypointIndex: 12
+  carFront: 0
+--- !u!114 &8808781929889456620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2359946961384658801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ba9a73a0018d0469574c9de7fa5888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 25
+  script: {fileID: 0}
 --- !u!1 &2644946859652139720
 GameObject:
   m_ObjectHideFlags: 0

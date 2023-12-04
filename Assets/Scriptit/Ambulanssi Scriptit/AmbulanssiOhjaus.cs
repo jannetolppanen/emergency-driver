@@ -23,6 +23,7 @@ public class AmbulanssiOhjaus : MonoBehaviour
     private float speedNow = 0f;
     private float breaksNow = 0f;
     private float turnNow = 0f;
+    public float liuku;
 
 
     private void FixedUpdate()
@@ -42,16 +43,18 @@ public class AmbulanssiOhjaus : MonoBehaviour
     private void SpeedandBreak()
     {
         // Speed
-        speedNow = speed * Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        // Brake
-        if (Input.GetKey(KeyCode.Space))
+        if (verticalInput != 0)
         {
-            breaksNow = breaks;
+            speedNow = speed * verticalInput;
+            breaksNow = 0f;
         }
         else
         {
-            breaksNow = 0f;
+            speedNow -= liuku * Time.deltaTime;
+            speedNow = Mathf.Max(0, speedNow);
+            breaksNow = breaks;
         }
 
         // Frontwheels motor only

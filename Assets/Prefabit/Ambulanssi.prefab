@@ -841,7 +841,6 @@ GameObject:
   - component: {fileID: 689007735456273610}
   - component: {fileID: 2949396542682014766}
   - component: {fileID: 1976000028197754477}
-  - component: {fileID: 8583927316531419613}
   m_Layer: 0
   m_Name: Ambulanssi
   m_TagString: Player
@@ -994,18 +993,6 @@ MonoBehaviour:
   speed: 1000
   breaks: 400
   maxTurn: 15
---- !u!114 &8583927316531419613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261207139748516144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9692c294f48694d90b694de3126300, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4298119875373342164
 GameObject:
   m_ObjectHideFlags: 0
