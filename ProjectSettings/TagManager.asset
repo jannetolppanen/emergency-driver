@@ -9,6 +9,7 @@ TagManager:
   - CinemachineTarget
   - Item
   - katulamppu
+  - End
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,7 @@ public class testiajelu : MonoBehaviour
     public float rotationSpeed = 10f;
     public float obstacleDistance;
     public int currentWaypointIndex = 0;
+    public bool carFront = false;
 
     void Update()
     {
@@ -28,10 +29,12 @@ public class testiajelu : MonoBehaviour
         if (Physics.Raycast(ray, out hit, obstacleDistance))
         {
             speed = 0f;
+            carFront = true;
         }
         else
         {
             speed = 10f;
+            carFront = false;
         }
     }
 
@@ -41,7 +44,7 @@ public class testiajelu : MonoBehaviour
         {
             Transform targetWaypoint = waypoints[currentWaypointIndex];
             Vector3 direction = targetWaypoint.position - transform.position;
-
+            
             // Move towards the waypoint
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
 
@@ -60,5 +63,14 @@ public class testiajelu : MonoBehaviour
             // Reset the current waypoint index to loop back to the start
             currentWaypointIndex = 0;
         }
+    }
+
+    public void brake()
+    {
+        speed = 3;
+    }
+    public void Normalspeed()
+    {
+        speed = 10;
     }
 }
