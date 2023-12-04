@@ -19,12 +19,12 @@ To fetch a pull request, use the command `git fetch origin pull/[ID]/head:[BRANC
 
 ## Team
 
-| Name               | Discord     | Role               |
-| :----:             | :----:      | :----:             |
-| Teemu Kalmari      | temez26     | Backend            |
-| Anton Karjalainen  | ant0n       | Unity              |
-| Topi Kinnunen      | topi        | Unity              |
-| Janne Lindström    | Janne L     | ?                  |
-| Santeri Myllyviita | Santeri_M   | ?                  |
-| Olli Saarenmaa     | Olli        | Unity              |
-| Janne Tolppanen    | Janne       | Project management |
+| Name               | Discord     | Role                           |
+| :----:             | :----:      | :----:                         |
+| Teemu Kalmari      | temez26     | Backend, UI                    |
+| Anton Karjalainen  | ant0n       | Unity, UI                      |
+| Topi Kinnunen      | topi        | Unity, Powerpoint              |
+| Janne Lindström    | Janne L     | Audio                          |
+| Santeri Myllyviita | Santeri_M   | Unity                          |
+| Olli Saarenmaa     | Olli        | Unity, Jack of all trades      |
+| Janne Tolppanen    | Janne       | Project management, Car paths  |
