@@ -9,21 +9,18 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI interactionText;
 
     private GameObject currentInteractable;
-    private bool isPressingE = false;
     private GameObject heldItem;
 
     void Update()
     {
         CheckForInteractable();
-        HandleInput();
 
-        // Tee tietty toiminto, kun pelaaja painaa "E" painiketta objektiin jolla on tietty tag.
         if (currentInteractable != null)
         {
             if (currentInteractable.CompareTag("Car"))
             {
                 interactionText.text = "Press [E] to start the game";
-                if (isPressingE && Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     SceneManager.LoadScene("Level1");
                     Cursor.visible = true;
@@ -33,20 +30,18 @@ public class PlayerInteraction : MonoBehaviour
             else if (currentInteractable.CompareTag("Item"))
             {
                 interactionText.text = "Press [E] to hold";
-                if (isPressingE)
+                if (Input.GetKeyDown(KeyCode.E) && heldItem == null)
                 {
                     HoldItem(currentInteractable);
                 }
             }
-            // Voi lisätä muita toimintoja
         }
         else
         {
-            interactionText.text = ""; // Pyyhi interaction teksti
+            interactionText.text = "";
         }
 
-        // Pudota esine kuin vapautat "E" painikkeen
-        if (!isPressingE && heldItem != null)
+        if (Input.GetKeyUp(KeyCode.E) && heldItem != null)
         {
             DropItem();
         }
@@ -65,35 +60,19 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            isPressingE = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            isPressingE = false;
-        }
-    }
-
     void HoldItem(GameObject item)
     {
-        // Lisää esine pelaajan lapseksi
+        // Aseta esine pelaaja objectin lapseksi
         heldItem = item;
         heldItem.transform.parent = transform;
-        heldItem.GetComponent<Rigidbody>().isKinematic = true; // Poista physiikka käytöstä esineestä
+        heldItem.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void DropItem()
     {
-        // Poista esine pelaajalta
-        if (heldItem != null)
-        {
-            heldItem.transform.parent = null;
-            heldItem.GetComponent<Rigidbody>().isKinematic = false; // Ota physiikka käyttöön esineeseen
-            heldItem = null;
-        }
+        // Poista esine pelaaja objectista
+        heldItem.transform.parent = null;
+        heldItem.GetComponent<Rigidbody>().isKinematic = false;
+        heldItem = null;
     }
 }
