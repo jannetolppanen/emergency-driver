@@ -8,14 +8,41 @@ public class testiajelu : MonoBehaviour
     public Transform[] waypoints;
     public float speed = 10f;
     public float rotationSpeed = 10f;
-    public float obstacleDistance;
+    public float frontRayDistance;
+    public float backRayDistance;
     public int currentWaypointIndex = 0;
     public bool carFront = false;
+    public bool PlayerBack = false;
+    public bool greenCar = false;
 
     void Update()
     {
         MoveToWaypoint();
         tormaysRay();
+        takaRay();
+
+        if(!greenCar)
+        {
+            if(!carFront && !PlayerBack)
+            {
+                speed = 10f;
+            }
+            else
+            {
+                speed = 0f;
+            }
+        }
+        else if(greenCar)
+        {
+            if(carFront)
+            {
+                speed = 0;
+            }
+            else
+            {
+                speed = 10;
+            }
+        }
     }
 
     void tormaysRay()
@@ -23,19 +50,60 @@ public class testiajelu : MonoBehaviour
         Vector3 rayOrigin = transform.position + Vector3.up * 0.5f;
         Ray ray = new Ray(rayOrigin, transform.forward);
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * obstacleDistance, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * frontRayDistance, Color.red);
 
-
-        if (Physics.Raycast(ray, out hit, obstacleDistance))
+        if (Physics.Raycast(ray, out hit, frontRayDistance))
         {
-            speed = 0f;
             carFront = true;
         }
         else
         {
-            speed = 10f;
             carFront = false;
         }
+    }
+    void takaRay()
+    {
+        Vector3 rayOrigin1 = transform.position + Vector3.up * 1f;
+        Vector3 rayDirection1 = -transform.forward;
+        
+        Vector3 rayOrigin2 = transform.position + Vector3.up * 1f + Vector3.right * 0.5f;
+        Vector3 rayDirection2 = Quaternion.Euler(0, 10, 0) * -transform.forward; // 10 degrees to the right
+
+        Vector3 rayOrigin3 = transform.position + Vector3.up * 1f - Vector3.right * 0.5f;
+        Vector3 rayDirection3 = Quaternion.Euler(0, -10, 0) * -transform.forward; // 10 degrees to the left
+
+        if (RaycastAndHandle(rayOrigin1, rayDirection1) ||
+        RaycastAndHandle(rayOrigin2, rayDirection2) ||
+        RaycastAndHandle(rayOrigin3, rayDirection3))
+        {
+            PlayerBack = true;
+        }
+        else
+        {
+            PlayerBack = false;
+        }
+    }
+
+    bool RaycastAndHandle(Vector3 origin, Vector3 direction)
+    {
+        Ray ray = new Ray(origin, direction);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * backRayDistance, Color.red);
+
+        if (Physics.Raycast(ray, out hit, backRayDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+        
     }
 
     void MoveToWaypoint()
@@ -63,14 +131,5 @@ public class testiajelu : MonoBehaviour
             // Reset the current waypoint index to loop back to the start
             currentWaypointIndex = 0;
         }
-    }
-
-    public void brake()
-    {
-        speed = 3;
-    }
-    public void Normalspeed()
-    {
-        speed = 10;
     }
 }
