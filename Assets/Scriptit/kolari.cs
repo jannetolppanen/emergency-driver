@@ -11,9 +11,10 @@ public class kolari : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "End")
+        if (other.tag != "End" && !audiosource.isPlaying)
         {
             audiosource.Play();
         }
+        
     }
 }

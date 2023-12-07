@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class AmbulanssiOhjaus : MonoBehaviour
@@ -25,12 +24,12 @@ public class AmbulanssiOhjaus : MonoBehaviour
     private float turnNow = 0f;
     public float liuku;
 
-
     private void FixedUpdate()
     {
         SpeedandBreak();
         CarTurn();
         UpdateWheels();
+
     }
     // Kääntyminen
     private void CarTurn()
@@ -44,6 +43,7 @@ public class AmbulanssiOhjaus : MonoBehaviour
     {
         // Speed
         float verticalInput = Input.GetAxis("Vertical");
+        float brakeInput = Input.GetKey(KeyCode.Space) ? 10f : 0.3f;
 
         if (verticalInput != 0)
         {
@@ -52,9 +52,12 @@ public class AmbulanssiOhjaus : MonoBehaviour
         }
         else
         {
-            speedNow -= liuku * Time.deltaTime;
-            speedNow = Mathf.Max(0, speedNow);
-            breaksNow = breaks;
+            if (speedNow > 0)
+            {
+                speedNow -= liuku * Time.deltaTime;
+                speedNow = Mathf.Max(0, speedNow);
+            }
+            breaksNow = brakeInput * breaks;
         }
 
         // Frontwheels motor only
@@ -84,4 +87,5 @@ public class AmbulanssiOhjaus : MonoBehaviour
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
+
 }

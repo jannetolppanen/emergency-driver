@@ -18,7 +18,6 @@ public class Navigation : MonoBehaviour
 
     void Update()
     {
-        // Update the path at a specified interval
         if (Time.time - lastUpdateTime > updateInterval)
         {
             UpdatePath();
